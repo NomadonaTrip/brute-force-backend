@@ -2,12 +2,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from groq import Groq
-from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 CORS(app)
 
-load_dotenv()
+
 
 
 # Initialize Groq client
