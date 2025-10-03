@@ -11,7 +11,8 @@ CORS(app)
 
 
 # Initialize Groq client
-client = Groq(api_key=os.environ.get('GROQ_API_KEY'))
+def get_groq_client():
+    return Groq(api_key=os.environ.get('GROQ_API_KEY'))
 
 @app.route('/api/generate-response', methods=['POST'])
 def generate_response():
@@ -56,7 +57,7 @@ Respond ONLY as the prospect. Do not break character.
         user_message = f"Salesperson says: {user_transcript}"
         
         # Call Groq API
-        chat_completion = client.chat.completions.create(
+        chat_completion = get_groq_client().chat.completions.create(
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message}
@@ -129,7 +130,7 @@ Warmth guide:
 Return ONLY the JSON, no other text."""
 
     try:
-        eval_completion = client.chat.completions.create(
+        eval_completion = get_groq_client().chat.completions.create(
             messages=[
                 {"role": "user", "content": eval_prompt}
             ],
